@@ -4,7 +4,7 @@ import { UniqueEntityId } from "@/core/entitites/value-objects/unique-entity-id"
 import dayjs from "dayjs";
 
 
-interface AnswerProps {
+export interface AnswerProps {
   questionId: UniqueEntityId;
   authorId: UniqueEntityId;
   content: string;
