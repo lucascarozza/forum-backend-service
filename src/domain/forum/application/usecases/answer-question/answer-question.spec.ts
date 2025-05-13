@@ -1,6 +1,7 @@
-import { AnswerQuestionUseCase } from "./answer-question";
+import { Answer } from "@/domain/forum/enterprise/entities/answer";
 import { AnswersRepository } from "../../repositories/answers-repository";
-import { Answer } from "../../entities/answer";
+import { AnswerQuestionUseCase } from "./answer-question";
+
 
 const mockRepository: AnswersRepository = {
   create: async (answer: Answer) => {
