@@ -4,6 +4,7 @@ import { makeQuestion } from "tests/factories/make-question";
 import { InMemoryAnswersRepository } from "tests/in-memory-repositories/in-memory-answers-repository";
 import { InMemoryQuestionsRepository } from "tests/in-memory-repositories/in-memory-questions-repository";
 import { ChooseBestAnswerUseCase } from "./choose-best-answer";
+import { NotAllowedError } from "../@errors/not-allowed-error";
 
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
@@ -19,7 +20,7 @@ describe("Choose Best Answer", () => {
     );
   });
 
-  it("should be able to choose a best answer when the author is the owner", async () => {
+  it("should allow the owner to choose the best answer", async () => {
     const question = makeQuestion();
 
     const answer = makeAnswer({
@@ -39,7 +40,7 @@ describe("Choose Best Answer", () => {
     );
   });
 
-  it("should not be able to choose a best answer when the author is not the owner", async () => {
+  it("should not allow non-owners to choose the best answer", async () => {
     const question = makeQuestion({
       authorId: new UniqueEntityId("author-1"),
     });
@@ -51,11 +52,12 @@ describe("Choose Best Answer", () => {
     await inMemoryQuestionsRepository.create(question);
     await inMemoryAnswersRepository.create(answer);
 
-    await expect(() => {
-      return sut.execute({
-        authorId: "author-2",
-        answerId: answer.id.toString(),
-      });
-    }).rejects.toBeInstanceOf(Error);
+    const result = await sut.execute({
+      authorId: "author-2",
+      answerId: answer.id.toString(),
+    });
+
+    expect(result.isLeft()).toBe(true);
+    expect(result.value).toBeInstanceOf(NotAllowedError);
   });
 });

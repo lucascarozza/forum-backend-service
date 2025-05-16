@@ -24,12 +24,12 @@ describe("Fetch Answers by Question ID", () => {
       makeAnswer({ questionId: new UniqueEntityId("question-2") })
     );
 
-    const { answers } = await sut.execute({
+    const result = await sut.execute({
       questionId: "question-1",
       page: 1,
     });
 
-    expect(answers).toHaveLength(2);
+    expect(result.value?.answers).toHaveLength(2);
   });
 
   it("should paginate answers correctly", async () => {
@@ -43,11 +43,11 @@ describe("Fetch Answers by Question ID", () => {
       makeAnswer({ questionId: new UniqueEntityId("question-2") })
     );
 
-    const { answers } = await sut.execute({
+    const result = await sut.execute({
       questionId: "question-1",
       page: 2,
     });
 
-    expect(answers).toHaveLength(2);
+    expect(result.value?.answers).toHaveLength(2);
   });
 });
