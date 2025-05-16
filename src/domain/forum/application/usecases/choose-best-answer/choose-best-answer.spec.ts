@@ -4,7 +4,7 @@ import { makeQuestion } from "tests/factories/make-question";
 import { InMemoryAnswersRepository } from "tests/in-memory-repositories/in-memory-answers-repository";
 import { InMemoryQuestionsRepository } from "tests/in-memory-repositories/in-memory-questions-repository";
 import { ChooseBestAnswerUseCase } from "./choose-best-answer";
-import { NotAllowedError } from "../@errors/not-allowed-error";
+import { NotAllowedError } from "@/core/errors/not-allowed-error";
 import { InMemoryAnswerAttachmentsRepository } from "tests/in-memory-repositories/in-memory-answer-attachments-repository";
 import { InMemoryQuestionAttachmentsRepository } from "tests/in-memory-repositories/in-memory-question-attachments-repository";
 
