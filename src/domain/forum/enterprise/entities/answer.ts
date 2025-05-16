@@ -2,13 +2,13 @@ import { Optional } from "@/core/@types/optional";
 import { Entity } from "@/core/entitites/entity";
 import { UniqueEntityId } from "@/core/entitites/unique-entity-id";
 import dayjs from "dayjs";
-import { AnswerAttachment } from "./answer-attachment";
+import { AnswerAttachmentList } from "./answer-attachment-list";
 
 export interface AnswerProps {
   questionId: UniqueEntityId;
   authorId: UniqueEntityId;
   content: string;
-  attachments: AnswerAttachment[];
+  attachments: AnswerAttachmentList;
   createdAt: Date;
   updatedAt?: Date;
 }
@@ -55,8 +55,9 @@ export class Answer extends Entity<AnswerProps> {
     this.touch();
   }
 
-  set attachments(attachments: AnswerAttachment[]) {
-    this.props.attachments = this.attachments;
+  set attachments(attachments: AnswerAttachmentList) {
+    this.props.attachments = attachments;
+    this.touch();
   }
 
   static create(
@@ -66,7 +67,7 @@ export class Answer extends Entity<AnswerProps> {
     const answer = new Answer(
       {
         ...props,
-        attachments: props.attachments ?? [],
+        attachments: props.attachments ?? new AnswerAttachmentList(),
         createdAt: props.createdAt ?? new Date(),
       },
       id
