@@ -1,4 +1,4 @@
-import { UniqueEntityId } from "@/core/entitites/value-objects/unique-entity-id";
+import { UniqueEntityId } from "@/core/entitites/unique-entity-id";
 import { InMemoryQuestionCommentsRepository } from "tests/in-memory-repositories/in-memory-question-comments-repository";
 import { FetchQuestionCommentsUseCase } from "./fetch-question-comments";
 import { makeQuestionComment } from "tests/factories/make-question-comment";

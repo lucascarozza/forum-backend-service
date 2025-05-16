@@ -1,6 +1,6 @@
 import { Question } from "@/domain/forum/enterprise/entities/question";
 import { QuestionsRepository } from "../../repositories/questions-repository";
-import { UniqueEntityId } from "@/core/entitites/value-objects/unique-entity-id";
+import { UniqueEntityId } from "@/core/entitites/unique-entity-id";
 import { Either, right } from "@/core/either";
 
 interface CreateQuestionUseCaseRequest {

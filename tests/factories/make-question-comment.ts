@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { UniqueEntityId } from "@/core/entitites/value-objects/unique-entity-id";
+import { UniqueEntityId } from "@/core/entitites/unique-entity-id";
 import {
   QuestionComment,
   QuestionCommentProps,

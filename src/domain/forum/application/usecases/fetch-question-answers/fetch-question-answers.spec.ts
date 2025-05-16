@@ -1,7 +1,7 @@
 import { makeAnswer } from "tests/factories/make-answer";
 import { FetchQuestionAnswersUseCase } from "./fetch-question-answers";
 import { InMemoryAnswersRepository } from "tests/in-memory-repositories/in-memory-answers-repository";
-import { UniqueEntityId } from "@/core/entitites/value-objects/unique-entity-id";
+import { UniqueEntityId } from "@/core/entitites/unique-entity-id";
 
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
 let sut: FetchQuestionAnswersUseCase; // System under test
