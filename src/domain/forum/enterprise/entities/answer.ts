@@ -2,11 +2,13 @@ import { Optional } from "@/core/@types/optional";
 import { Entity } from "@/core/entitites/entity";
 import { UniqueEntityId } from "@/core/entitites/unique-entity-id";
 import dayjs from "dayjs";
+import { AnswerAttachment } from "./answer-attachment";
 
 export interface AnswerProps {
   questionId: UniqueEntityId;
   authorId: UniqueEntityId;
   content: string;
+  attachments: AnswerAttachment[];
   createdAt: Date;
   updatedAt?: Date;
 }
@@ -22,6 +24,10 @@ export class Answer extends Entity<AnswerProps> {
 
   get content() {
     return this.props.content;
+  }
+
+  get attachments() {
+    return this.props.attachments;
   }
 
   get createdAt() {
@@ -49,13 +55,18 @@ export class Answer extends Entity<AnswerProps> {
     this.touch();
   }
 
+  set attachments(attachments: AnswerAttachment[]) {
+    this.props.attachments = this.attachments;
+  }
+
   static create(
-    props: Optional<AnswerProps, "createdAt">,
+    props: Optional<AnswerProps, "createdAt" | "attachments">,
     id?: UniqueEntityId
   ) {
     const answer = new Answer(
       {
         ...props,
+        attachments: props.attachments ?? [],
         createdAt: props.createdAt ?? new Date(),
       },
       id
