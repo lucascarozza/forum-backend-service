@@ -1,9 +1,10 @@
 import { Optional } from "@/core/@types/optional";
-import { Entity } from "@/core/entitites/entity";
+import { AggregateRoot } from "@/core/entitites/aggregate-root";
 import { UniqueEntityId } from "@/core/entitites/unique-entity-id";
 import dayjs from "dayjs";
-import { Slug } from "./value-objects/slug/slug";
 import { QuestionAttachmentList } from "./question-attachment-list";
+import { Slug } from "./value-objects/slug/slug";
+import { MarkedBestAnswerEvent } from "../events/marked-best-answer";
 
 export interface QuestionProps {
   authorId: UniqueEntityId;
@@ -16,7 +17,7 @@ export interface QuestionProps {
   updatedAt?: Date;
 }
 
-export class Question extends Entity<QuestionProps> {
+export class Question extends AggregateRoot<QuestionProps> {
   get authorId() {
     return this.props.authorId;
   }
@@ -62,6 +63,15 @@ export class Question extends Entity<QuestionProps> {
   }
 
   set bestAnswerId(bestAnswerId: UniqueEntityId | undefined) {
+    if (bestAnswerId === undefined) return;
+
+    if (
+      this.props.bestAnswerId === undefined ||
+      !this.props.bestAnswerId.equals(bestAnswerId)
+    ) {
+      this.addDomainEvent(new MarkedBestAnswerEvent(this, bestAnswerId));
+    }
+
     this.props.bestAnswerId = bestAnswerId;
     this.touch();
   }

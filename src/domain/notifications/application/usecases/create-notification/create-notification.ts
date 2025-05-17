@@ -3,7 +3,7 @@ import { UniqueEntityId } from "@/core/entitites/unique-entity-id";
 import { Notification } from "@/domain/notifications/enterprise/entities/notification";
 import { NotificationsRepository } from "../../repositories/notifications-repository";
 
-interface CreateNotificationUseCaseRequest {
+export interface CreateNotificationUseCaseRequest {
   recipientId: string;
   title: string;
   content: string;
